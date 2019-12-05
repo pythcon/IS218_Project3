@@ -12,10 +12,6 @@ if ($action == NULL) {
     }
 }
 
-if (!$_SESSION['action'] === ""){
-    $action = $_SESSION['action'];
-}
-
 switch ($action) {
     case 'show_login': {
         include('views/login.php');
@@ -33,12 +29,11 @@ switch ($action) {
             $isValidLogin = validate_login($email, $password);
             
             if (!$isValidLogin){
-                $_SESSION['action'] = 'display_registration';
-                header("Location.");
+                header("Location.?action=display_registration");
             }else{
                 $userId = $isValidLogin[0]['id'];
                 $_SESSION['userId'] = $userId;
-                header("Location: .");
+                header("Location: .?action=display_questions");
             }
         }
         
