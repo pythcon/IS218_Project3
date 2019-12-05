@@ -12,6 +12,10 @@ if ($action == NULL) {
     }
 }
 
+if (!$_SESSION['action'] === ""){
+    $action = $_SESSION['action'];
+}
+
 switch ($action) {
     case 'show_login': {
         include('views/login.php');
@@ -29,8 +33,8 @@ switch ($action) {
             $isValidLogin = validate_login($email, $password);
             
             if (!$isValidLogin){
-                //TODO: redirect to registration page
-                
+                $_SESSION['action'] = 'display_registration';
+                header("Location.");
             }else{
                 $userId = $isValidLogin[0]['id'];
                 $_SESSION['userId'] = $userId;
