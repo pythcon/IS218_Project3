@@ -33,6 +33,7 @@ switch ($action) {
             }else{
                 $userId = $isValidLogin[0]['id'];
                 $_SESSION['userId'] = $userId;
+                $_SESSION['logged'] = true;
                 header("Location: .?action=display_questions");
             }
         }
@@ -41,7 +42,11 @@ switch ($action) {
     }
         
     case 'display_questions':{
-        include('views/questions.php');
+        if ($_SESSION['logged']){
+            include('views/questions.php');
+        }else{
+            header("Location.?action=display_registration");
+        }
         break;
     }
         
