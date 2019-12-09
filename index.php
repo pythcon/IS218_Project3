@@ -4,6 +4,9 @@ require('model/database.php');
 require('model/accounts_db.php');
 require('model/questions_db.php');
 
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+ini_set('display_errors' , 1);
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -22,14 +25,14 @@ switch ($action) {
         $email = filter_input(INPUT_POST, 'email');
         $password = filter_input(INPUT_POST, 'password');
         
-        if ($email = NULL || $password = NULL){
+        if ($email == NULL || $password == NULL){
             $error = "Email and/or Password is empty.";
             include('errors/error.php');
         }else{
             $isValidLogin = validate_login($email, $password);
             
             if (!$isValidLogin){
-                header("Location.?action=display_registration");
+                header("Location: .?action=display_registration");
             }else{
                 $userId = $isValidLogin[0]['id'];
                 $_SESSION['userId'] = $userId;
@@ -57,31 +60,38 @@ switch ($action) {
             if (!$isValidRegistration){
                 $error = "Something went wrong. Please try again.";
                 include('errors/error.php');
-                header("Location.?action=display_registration");
+                header("Location: .?action=display_registration");
             }else{
                 echo"
                 <script>
                     alert(\"Account Created. Please log in.\");
-                    window.location.replace(\"/dashboard.php\");
                 </script>";
                 header("Location: .?action=display_login");
             }
         }
-        
         break;
     }
         
-    case 'display_questions':{
+    case 'display_questions': {
         if ($_SESSION['logged']){
+            
             include('views/questions.php');
         }else{
-            header("Location.?action=display_registration");
+            header("Location: .?action=display_login");
         }
         break;
     }
         
-    case 'display_registration':{
+    case 'display_registration': {
         include('views/registration.php');
+        break;
+    }
+    
+    case 'logout': {
+        $_SESSION['logged'] = false;
+        $test = $_SESSION['logged'];
+        session_destroy();
+        header("Location: .?action=show_login");
         break;
     }
 

@@ -22,7 +22,7 @@ function validate_login($email, $password){
 function validate_registration($email, $password, $firstName, $lastName, $birthday){
     global $db;
     
-    $sql = "INSERT INTO accounts VALUES($num_rows+1, '$email', '$firstName', '$lastName', '$birthday', '$pass')";
+    $sql = "INSERT INTO accounts VALUES($num_rows+1, '$email', '$firstName', '$lastName', '$birthday', '$password')";
     $q = $db->prepare($sql);
     
     if($q->execute() === false){
