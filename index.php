@@ -17,7 +17,11 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'show_login': {
-        include('views/login.php');
+        if ($_SESSION['logged']){
+            header("Location: .?action=display_questions");
+        }else{
+            include('views/login.php');
+        }
         break;
     }
         
