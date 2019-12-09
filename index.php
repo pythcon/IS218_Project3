@@ -41,6 +41,36 @@ switch ($action) {
         break;
     }
         
+    case 'validate_registration': {
+        $email = filter_input(INPUT_POST, 'email');
+        $password = filter_input(INPUT_POST, 'password');
+        $firstName = filter_input(INPUT_POST, 'firstName');
+        $lastName = filter_input(INPUT_POST, 'lastName');
+        $birthday = filter_input(INPUT_POST, 'birthday');
+        
+        if ($email == NULL || $password == NULL || $firstName == NULL || $lastName == NULL || $birthday == NULL){
+            $error = "All fields are required.";
+            include('errors/error.php');
+        }else{
+            $isValidRegistration = validate_registration($email, $password, $firstName, $lastName, $birthday);
+            
+            if (!$isValidRegistration){
+                $error = "Something went wrong. Please try again.";
+                include('errors/error.php');
+                header("Location.?action=display_registration");
+            }else{
+                echo"
+                <script>
+                    alert(\"Account Created. Please log in.\");
+                    window.location.replace(\"/dashboard.php\");
+                </script>";
+                header("Location: .?action=display_login");
+            }
+        }
+        
+        break;
+    }
+        
     case 'display_questions':{
         if ($_SESSION['logged']){
             include('views/questions.php');

@@ -18,3 +18,18 @@ function validate_login($email, $password){
         return true;
     }
 }
+
+function validate_registration($email, $password, $firstName, $lastName, $birthday){
+    global $db;
+    
+    $sql = "INSERT INTO accounts VALUES($num_rows+1, '$email', '$firstName', '$lastName', '$birthday', '$pass')";
+    $q = $db->prepare($sql);
+    
+    if($q->execute() === false){
+        return false;
+    }else{
+        return true;
+    }
+
+    $q->closeCursor();
+}
