@@ -35,6 +35,7 @@ switch ($action) {
                 header("Location: .?action=display_registration");
             }else{
                 $_SESSION['userId'] = $isValidLogin[0]['id'];
+                $_SESSION['email'] = $email;
                 $_SESSION['firstName'] = $isValidLogin[0]['fname'];
                 $_SESSION['lastName'] = $isValidLogin[0]['lname'];
                 $_SESSION['logged'] = true;
