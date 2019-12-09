@@ -8,7 +8,7 @@
                         $out = "Welcome, <b>".$_SESSION['firstName']. " " .$_SESSION['lastName']. "</b>, Here is your question data:<br>";
 
                         //call to function
-                        $out = display_questions($email);
+                        $out = display_questions($_SESSION['email']);
 
                         //print out
                         print "<span>$out</span>";

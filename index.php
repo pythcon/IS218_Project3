@@ -34,8 +34,9 @@ switch ($action) {
             if (!$isValidLogin){
                 header("Location: .?action=display_registration");
             }else{
-                $userId = $isValidLogin[0]['id'];
-                $_SESSION['userId'] = $userId;
+                $_SESSION['userId'] = $isValidLogin[0]['id'];
+                $_SESSION['firstName'] = $isValidLogin[0]['fname'];
+                $_SESSION['lastName'] = $isValidLogin[0]['lname'];
                 $_SESSION['logged'] = true;
                 header("Location: .?action=display_questions");
             }

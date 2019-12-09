@@ -1,6 +1,7 @@
 <?php
 function display_questions($email){
     global $db;
+    $out = "";
     
     $sql = "SELECT * FROM questions WHERE owneremail='$email'";
     $q = $db->prepare($sql);
