@@ -55,6 +55,22 @@ function edit_question($questionId, $title, $body, $skills){
     
 }
 
+function delete_question($questionId){
+    global $db;
+    
+    $sql = "DELETE FROM questions WHERE id='$questionId'";
+    $q = $db->prepare($sql);
+    
+    if($q->execute() === false){
+        return false;
+    }else{
+        return true;
+    }
+
+    $q->closeCursor();
+    
+}
+
 function create_question($email, $id, $title, $body, $skills){
     //insert num rows variable
     global $db;

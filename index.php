@@ -124,6 +124,43 @@ switch ($action) {
         }
         break;
     }
+        
+    case 'delete_question': {
+        $questionId = $_SESSION['questionId'];
+        if (delete_question($questionId)){
+            echo"
+            <script>
+                alert(\"Question deleted successfully.\");
+            </script>";
+        }else{
+            echo"
+            <script>
+                alert(\"Something went wrong. Please try again.\");
+            </script>";
+        }
+        header("Location: .?action=display_questions");
+        break;
+    }
+        
+    case 'create_question': {
+        $questionName = filter_input(INPUT_POST, 'questionName');
+        $questionBody = filter_input(INPUT_POST, 'questionBody');
+        $questionSkills = filter_input(INPUT_POST, 'questionSkills');
+        
+        if (create_question($_SESSION['email'], $_SESSION['userId'], $questionName, $questionBody, $questionSkills){
+            echo"
+            <script>
+                alert(\"Question added.\");
+            </script>";
+        }else{
+            echo"
+            <script>
+                alert(\"Something went wrong. Please try again.\");
+            </script>";
+        }
+        header("Location: .?action=display_questions");
+        break;
+    }
     
     case 'logout': {
         $_SESSION['logged'] = false;
