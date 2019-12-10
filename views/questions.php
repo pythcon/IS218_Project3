@@ -5,14 +5,14 @@
         <div>
             <div class="formContainer">
                 <?php
-                        $out = "Welcome, <b>".$_SESSION['firstName']. " " .$_SESSION['lastName']. "</b>, Here is your question data:<br>";
+                    $out = "Welcome, <b>".$_SESSION['firstName']. " " .$_SESSION['lastName']. "</b>, Here is your question data:<br>";
 
-                        //call to function
-                        $out = display_questions($_SESSION['email']);
+                    //call to function
+                    $out = display_questions($_SESSION['email']);
 
-                        //print out
-                        print "<span>$out</span>";
-                    ?>
+                    //print out
+                    print "<span>$out</span>";
+                ?>
             </div>
         </div>
     </div>

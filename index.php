@@ -91,6 +91,13 @@ switch ($action) {
         include('views/registration.php');
         break;
     }
+        
+    case 'display_edit_question': {
+        $questionId = filter_input(INPUT_POST, 'questionToEdit');
+        $questionToEdit = edit_question($questionId);
+        include('views/question.php');
+        break;
+    }
     
     case 'logout': {
         $_SESSION['logged'] = false;
