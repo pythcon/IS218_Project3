@@ -80,10 +80,9 @@ switch ($action) {
         
     case 'display_questions': {
         if ($_SESSION['logged']){
-            
             include('views/questions.php');
         }else{
-            header("Location: .?action=display_login");
+            header("Location: .?action=show_login");
         }
         break;
     }
