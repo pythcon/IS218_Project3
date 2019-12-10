@@ -10,7 +10,7 @@
                     <div>
                         <input type='text' name='questionName' value='$questionName'>
                         <input type='text' name='questionBody' value='$questionBody'>
-                        <input type='text' name='questionBody' value='$questionSkills'>
+                        <input type='text' name='questionSkills' value='$questionSkills'>
                         <input type='submit' value='submit'>
                     </div>
                     ";

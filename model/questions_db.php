@@ -11,7 +11,7 @@ function display_questions($email){
     $out .= "<div class='tablePrintout'><table border='2px'>";
     $out .= "<tr><td>Name</td><td>Body</td><td>Skills</td></tr>";
     foreach ($results as $row){
-        $out .= "<tr><td>".$row['title']."</td><td>".$row['body']."</td><td>".$row['skills']."</td><td><form action='index.php?action=edit_question' method='post'><input type='hidden' value='".$row['id']."'><input type='submit' name='questionToEdit' value='edit'></td></tr>";
+        $out .= "<tr><td>".$row['title']."</td><td>".$row['body']."</td><td>".$row['skills']."</td><td><form action='index.php?action=display_edit_question' method='post'><input type='hidden' value='".$row['id']."' name='questionToEdit'><input type='submit' value='edit'></form></td></tr>";
     }
     $out .= "</table></div>";
 
@@ -29,8 +29,13 @@ function display_edit_question($questionId){
     $q->execute();
     $results = $q->fetchAll();
     $q->closeCursor();
+    $returnQuestion = array();
     
-    return $results;
+    foreach ($results as $row){
+        array_push($returnQuestion, $row['title'], $row['body'], $row['skills']);
+    }
+    
+    return $returnQuestion;
     
 }
 

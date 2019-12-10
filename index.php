@@ -94,8 +94,34 @@ switch ($action) {
         
     case 'display_edit_question': {
         $questionId = filter_input(INPUT_POST, 'questionToEdit');
-        $questionToEdit = edit_question($questionId);
+        $_SESSION['questionId'] = $questionId;
+        $questionToEdit = display_edit_question($questionId);
+        $questionToEdit = array_values($questionToEdit);
+        $questionName = $questionToEdit[0];
+        $questionBody = $questionToEdit[1];
+        $questionSkills = $questionToEdit[2];
         include('views/question.php');
+        break;
+    }
+    
+    case 'edit_question': {
+        $questionId = $_SESSION['questionId'];
+        $questionName = filter_input(INPUT_POST, 'questionName');
+        $questionBody = filter_input(INPUT_POST, 'questionBody');
+        $questionSkills = filter_input(INPUT_POST, 'questionSkills');
+        if (edit_question($questionId, $questionName, $questionBody, $questionSkills)){
+            echo"
+            <script>
+                alert(\"Question edited successfully.\");
+            </script>";
+            header("Location: .");
+        }else{
+            echo"
+            <script>
+                alert(\"Something went wrong. Please try again.\");
+            </script>";
+            header("Location: .?action=display_edit_question");
+        }
         break;
     }
     
