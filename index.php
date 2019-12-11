@@ -219,7 +219,7 @@ switch ($action) {
         break;
     }
         
-    case 'about': {
+    case 'display_about': {
         include('views/about.php');
         break;
     }
