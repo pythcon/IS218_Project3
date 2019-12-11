@@ -9,7 +9,7 @@
                     echo "
                     <div>
                         <input type='text' name='questionName' placeholder='Name (ex. test)'>
-                        <input type='text' name='questionBody' placeholder='Body (500+ chars)'>
+                        <textarea name=questionBody id=questionBody autocomplete='off' placeholder='Question Body' rows="6" required></textarea>
                         <input type='text' name='questionSkills' placeholder='Skills (ex. skill1, skill2)'>
                         <input type='submit' value='submit'>
                     </div>

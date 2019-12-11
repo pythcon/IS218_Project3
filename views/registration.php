@@ -1,7 +1,7 @@
 <?php include('abstract-views/header.php'); ?>
 
     <form action="index.php" method="post">
-        <input type="hidden" name="action" value="display_registration">
+        <input type="hidden" name="action" value="validate_registration">
         
         <div class="form-group">
             <label for="firstName">First Name</label>

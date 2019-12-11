@@ -94,7 +94,6 @@ switch ($action) {
             if (!$isValidRegistration){
                 $error = "Something went wrong. Please try again.";
                 include('errors/error.php');
-                header("Location: .?action=display_registration");
             }else{
                 echo"
                 <script>
