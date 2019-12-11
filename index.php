@@ -4,9 +4,6 @@ require('model/database.php');
 require('model/accounts_db.php');
 require('model/questions_db.php');
 
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-ini_set('display_errors' , 1);
-
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
