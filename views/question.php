@@ -9,7 +9,7 @@
                     echo "
                     <div>
                         <input type='text' name='questionName' value='$questionName'>
-                        <textarea name=questionBody id=questionBody autocomplete='off' placeholder='Question Body' rows="6" required>$questionBody</textarea>
+                        <textarea name=questionBody id=questionBody autocomplete='off' placeholder='Question Body' rows='6' required>$questionBody</textarea>
                         <input type='text' name='questionSkills' value='$questionSkills'>
                         <input type='submit' value='submit'>
                     </div>
