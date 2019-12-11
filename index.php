@@ -38,13 +38,11 @@ switch ($action) {
             if (!$isValidLogin){
                 header("Location: .?action=display_registration");
             }else{
-                $_SESSION['userId'] = $isValidLogin[0]['id'];
                 $_SESSION['email'] = $email;
                 $_SESSION['logged'] = true;
                 header("Location: .?action=display_questions");
             }
         }
-        
         break;
     }
         
@@ -91,77 +89,125 @@ switch ($action) {
     }
         
     case 'display_edit_question': {
-        $questionId = filter_input(INPUT_POST, 'questionToEdit');
-        $_SESSION['questionId'] = $questionId;
-        $questionToEdit = display_edit_question($questionId);
-        $questionToEdit = array_values($questionToEdit);
-        $questionName = $questionToEdit[0];
-        $questionBody = $questionToEdit[1];
-        $questionSkills = $questionToEdit[2];
-        include('views/question.php');
+        if ($_SESSION['logged']){
+            $questionId = filter_input(INPUT_POST, 'questionToEdit');
+            $_SESSION['questionId'] = $questionId;
+            $questionToEdit = display_edit_question($questionId);
+            $questionToEdit = array_values($questionToEdit);
+            $questionName = $questionToEdit[0];
+            $questionBody = $questionToEdit[1];
+            $questionSkills = $questionToEdit[2];
+            include('views/question.php');
+        }else{
+            header("Location: .?action=show_login");
+        }
         break;
     }
     
     case 'edit_question': {
-        $questionId = $_SESSION['questionId'];
-        $questionName = filter_input(INPUT_POST, 'questionName');
-        $questionBody = filter_input(INPUT_POST, 'questionBody');
-        $questionSkills = filter_input(INPUT_POST, 'questionSkills');
-        if (edit_question($questionId, $questionName, $questionBody, $questionSkills)){
-            echo"
-            <script>
-                alert(\"Question edited successfully.\");
-            </script>";
-            header("Location: .");
+        if ($_SESSION['logged']){
+            $questionId = $_SESSION['questionId'];
+            $questionName = filter_input(INPUT_POST, 'questionName');
+            $questionBody = filter_input(INPUT_POST, 'questionBody');
+            $questionSkills = filter_input(INPUT_POST, 'questionSkills');
+            if (edit_question($questionId, $questionName, $questionBody, $questionSkills)){
+                echo"
+                <script>
+                    alert(\"Question edited successfully.\");
+                </script>";
+                header("Location: .");
+            }else{
+                $error= "Something went wrong. Please try again.";
+                include('errors/error.php');
+            }
         }else{
-            echo"
-            <script>
-                alert(\"Something went wrong. Please try again.\");
-            </script>";
-            header("Location: .?action=display_edit_question");
+            header("Location: .?action=show_login");
         }
         break;
     }
         
     case 'delete_question': {
-        $questionId = filter_input(INPUT_POST, 'questionToDelete');
-        if (delete_question($questionId)){
-            echo"
-            <script>
-                alert(\"Question deleted successfully.\");
-            </script>";
+        if ($_SESSION['logged']){
+            $questionId = filter_input(INPUT_POST, 'questionToDelete');
+            if (delete_question($questionId)){
+                echo"
+                <script>
+                    alert(\"Question deleted successfully.\");
+                </script>";
+                header("Location: .?action=display_questions");
+            }else{
+                $error= "Something went wrong. Please try again.";
+                include('errors/error.php');
+            }
         }else{
-            echo"
-            <script>
-                alert(\"Something went wrong. Please try again.\");
-            </script>";
+            header("Location: .?action=show_login");
         }
-        header("Location: .?action=display_questions");
         break;
     }
         
     case 'display_create_question': {
-        include("views/create_question.php");
+        if ($_SESSION['logged']){
+            include("views/create_question.php");
+        }else{
+            header("Location: .?action=show_login");
+        }
         break;
     }
         
     case 'create_question': {
-        $questionName = filter_input(INPUT_POST, 'questionName');
-        $questionBody = filter_input(INPUT_POST, 'questionBody');
-        $questionSkills = filter_input(INPUT_POST, 'questionSkills');
-        
-        if (create_question($_SESSION['email'], $_SESSION['userId'], $questionName, $questionBody, $questionSkills)){
-            echo"
-            <script>
-                alert(\"Question added.\");
-            </script>";
+        if ($_SESSION['logged']){
+            $valid = false;
+            $questionName = filter_input(INPUT_POST, 'questionName');
+            $questionBody = filter_input(INPUT_POST, 'questionBody');
+            $questionSkills = filter_input(INPUT_POST, 'questionSkills');
+
+            //check requirements
+            $containsComma = strpos($questionSkills, ',') !== false;
+            if (!$containsComma){
+                $error .= "Two Skills must be entered!<br>";
+                $valid = false;
+            }
+
+            //Check Question Name for requirements
+            if (empty($questionName)){
+                $error .= "Question Name cannot be empty!<br>";
+                $valid = false;
+            }
+
+            if (strlen($questionName) <= 3){
+                $error .= "Question Name must be at least 3 characters!<br>";
+                $valid = false;
+            }
+
+            //Check Question Body for requirements
+            if (empty($questionBody)){
+                $error .= "Question Body cannot be empty!<br>";
+                $valid = false;
+            }
+
+            if (strlen($questionBody) <= 500){
+                $error .= "Question Body must be at least 500 characters!<br>";
+                $valid = false;
+            }
+
+            if (!$valid){
+                include('errors/error.php');
+            }
+
+            //passed all checks
+            if (create_question($_SESSION['email'], $_SESSION['userId'], $questionName, $questionBody, $questionSkills)){
+                echo"
+                <script>
+                    alert(\"Question added.\");
+                </script>";
+                header("Location: .?action=display_questions");
+            }else{
+                $error= "Something went wrong. Please try again.";
+                include('errors/error.php');
+            }
         }else{
-            echo"
-            <script>
-                alert(\"Something went wrong. Please try again.\");
-            </script>";
+            header("Location: .?action=show_login");
         }
-        header("Location: .?action=display_questions");
         break;
     }
     

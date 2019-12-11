@@ -78,10 +78,11 @@ function create_question($email, $id, $title, $body, $skills){
     $q = $db->prepare($sql);
     $q->execute();
     $results = $q->fetchAll();
-    $num_rows = count($results);
-    $q->closeCursor();
+    $num_rows = $q->rowCount();
+    echo $num_rows;
+    echo $id;
     
-    $sql = "INSERT INTO questions VALUES($num_rows+1, '$email', '$id', NOW(), '$questionName', '$questionBody', '$skillsOutput', 0)";
+    $sql = "INSERT INTO questions VALUES($num_rows+1, '$email', '$id', NOW(), '$title', '$body', '$skills', 0)";
     $q = $db->prepare($sql);
     
     if($q->execute() === false){
