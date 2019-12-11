@@ -19,4 +19,4 @@
     </nav>
 
     <div class="container">
-        <header><h1>IS218 MVC Practice</h1></header>
+        <header><h1>IS218 Project 3</h1></header>
