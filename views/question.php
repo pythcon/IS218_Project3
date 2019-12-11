@@ -8,10 +8,22 @@
                 <?php
                     echo "
                     <div>
-                        <input type='text' name='questionName' value='$questionName'>
-                        <textarea name=questionBody id=questionBody autocomplete='off' placeholder='Question Body' rows='6' required>$questionBody</textarea>
-                        <input type='text' name='questionSkills' value='$questionSkills'>
-                        <input type='submit' value='submit'>
+                        <table>
+                            <tr>
+                                <td><label>Question Name</label></td>
+                                <td><input type='text' name='questionName' value='$questionName'></td>
+                            </tr>
+                            <tr>
+                                <td><label>Question Body</label></td>
+                                <td><textarea name=questionBody id=questionBody autocomplete='off' placeholder='Question Body' rows='6' required>$questionBody</textarea></td>
+                            </tr>
+                            <tr>
+                                <td><label>Question Skills</label></td>
+                                <td><input type='text' name='questionSkills' value='$questionSkills'></td>
+                            </tr>
+                            <tr>
+                                <td></td><td><input type='submit' value='submit'></td>
+                            </tr>
                     </div>
                     ";
                 ?>
