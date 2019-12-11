@@ -40,8 +40,6 @@ switch ($action) {
             }else{
                 $_SESSION['userId'] = $isValidLogin[0]['id'];
                 $_SESSION['email'] = $email;
-                $_SESSION['firstName'] = $isValidLogin[0]['fname'];
-                $_SESSION['lastName'] = $isValidLogin[0]['lname'];
                 $_SESSION['logged'] = true;
                 header("Location: .?action=display_questions");
             }
@@ -126,7 +124,7 @@ switch ($action) {
     }
         
     case 'delete_question': {
-        $questionId = $_SESSION['questionId'];
+        $questionId = filter_input(INPUT_POST, 'questionToDelete');
         if (delete_question($questionId)){
             echo"
             <script>
@@ -142,12 +140,17 @@ switch ($action) {
         break;
     }
         
+    case 'display_create_question': {
+        include("views/create_question.php");
+        break;
+    }
+        
     case 'create_question': {
         $questionName = filter_input(INPUT_POST, 'questionName');
         $questionBody = filter_input(INPUT_POST, 'questionBody');
         $questionSkills = filter_input(INPUT_POST, 'questionSkills');
         
-        if (create_question($_SESSION['email'], $_SESSION['userId'], $questionName, $questionBody, $questionSkills){
+        if (create_question($_SESSION['email'], $_SESSION['userId'], $questionName, $questionBody, $questionSkills)){
             echo"
             <script>
                 alert(\"Question added.\");

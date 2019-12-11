@@ -3,7 +3,7 @@
 function validate_login($email, $password){
     global $db;
     
-    $query = "SELECT * FROM accounts WHERE email='$email' AND password='$password'";
+    $query = "SELECT * FROM accounts WHERE email=:email AND password=:password";
     $statement = $db->prepare($query);
     
     $statement->bindValue(':email', $email);
@@ -11,6 +11,9 @@ function validate_login($email, $password){
     $statement->execute();
     
     $account = $statement->fetchAll();
+    
+    $_SESSION['firstName'] = $account[0]['fname'];
+    $_SESSION['lastName'] = $account[0]['lname'];
     
     if (count($account) === 0){
         return false;
