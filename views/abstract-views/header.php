@@ -17,7 +17,7 @@
             <?php if ($_SESSION['logged']){ 
                         echo "<li><a href='index.php?action=logout'>Logout</a></li>";
                     }else{
-                        echo "<li><a href='index.php?action=display_registration'>Register</a></li>"
+                        echo "<li><a href='index.php?action=display_registration'>Register</a></li>";
                     }?>
         </ul>
     </nav>
