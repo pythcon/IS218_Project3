@@ -14,7 +14,11 @@
             <li><a href="index.php?action=show_login">Home</a></li>
             <li><a href="index.php?action=display_questions">Questions</a></li>
             <li><a href="index.php?action=display_about">About</a></li>
-            <?php if ($_SESSION['logged']){ echo"<li><a href='index.php?action=logout'>Logout</a></li>";}?>
+            <?php if ($_SESSION['logged']){ 
+                        echo "<li><a href='index.php?action=logout'>Logout</a></li>";
+                    }else{
+                        echo "<li><a href='index.php?action=display_registration'>Register</a></li>"
+                    }?>
         </ul>
     </nav>
 
