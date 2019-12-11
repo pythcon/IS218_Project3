@@ -218,6 +218,11 @@ switch ($action) {
         header("Location: .?action=show_login");
         break;
     }
+        
+    case 'about': {
+        include('views/about.php');
+        break;
+    }
 
     default: {
         $error = 'Unknown Action';
