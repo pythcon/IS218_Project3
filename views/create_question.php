@@ -1,6 +1,6 @@
 <?php include('abstract-views/header.php'); ?>
 
-    <h1>Edit Question:</h1>
+    <h1>Create Question:</h1>
     <div class="mainContainer">
         <div>
             <div class="formContainer">
