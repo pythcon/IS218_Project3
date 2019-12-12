@@ -36,10 +36,11 @@ function validate_registration($email, $password, $firstName, $lastName, $birthd
     $q = $db->prepare($sql);
     
     if($q->execute() === false){
+        $q->closeCursor();
         return false;
     }else{
+        $q->closeCursor();
         return true;
     }
 
-    $q->closeCursor();
 }
