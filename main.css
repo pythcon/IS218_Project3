@@ -11,11 +11,12 @@ body {
     margin-top: 50%;
     font-family: Arial, Helvetica, sans-serif;
     width: 50%;
-    margin: 0 auto;
+    margin: auto;
     padding: 0 2em;
     background-color: #663399;
     border: 1px solid black;
     border-radius: 5px;
+    padding-bottom: 10px;
 }
 header {
     border-bottom: 2px solid black;

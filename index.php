@@ -108,7 +108,13 @@ switch ($action) {
     }
         
     case 'display_questions': {
+        //$test = $_POST['showAllQuestions'];
         if ($_SESSION['logged']){
+            if (filter_input(INPUT_POST, 'showAllQuestions') === 'yes'){
+                $_SESSION['displayAll'] = true;
+            }else{
+                $_SESSION['displayAll'] = false;
+            }
             include('views/questions.php');
         }else{
             header("Location: .?action=show_login");

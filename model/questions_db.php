@@ -1,9 +1,14 @@
 <?php
-function display_questions($email){
+function display_questions($email, $all){
     global $db;
     $out = "";
     
-    $sql = "SELECT * FROM questions WHERE owneremail='$email'";
+    if ($all){
+        $sql = "SELECT * FROM questions";
+    }else{
+        $sql = "SELECT * FROM questions WHERE owneremail='$email'";
+    }
+    
     $q = $db->prepare($sql);
     $q->execute();
     $results = $q->fetchAll();
@@ -18,7 +23,6 @@ function display_questions($email){
     $q->closeCursor();
     
     return $out;
-    
 }
 
 function display_edit_question($questionId){
